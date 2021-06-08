@@ -5,11 +5,13 @@ services:
     ports:
       - 8080:8080
     environment:
+      AWS_ENDPOINT_URL: http://localstack:4566
       HOST: 0.0.0.0
       PORT: 8080
       PYTHONUNBUFFERED: 1
     volumes:
       - ./src:/app/src
+      - ~/.aws/credentials:/root/.aws/credentials
   localstack:
     image: localstack/localstack
     ports:
@@ -20,6 +22,6 @@ services:
       LAMBDA_EXECUTOR: docker-reuse
       LAMBDA_REMOTE_DOCKER: 0
       LAMBDA_REMOVE_CONTAINERS: 1
-      SERVICES: cloudformation,iam,lambda,logs,s3,stepfunctions,sts
+      SERVICES: s3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

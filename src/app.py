@@ -6,8 +6,7 @@ import os
 app = Flask(__name__)
 
 if os.environ.get('AWS_ENDPOINT_URL') is None:
-  session = boto3.Session(profile_name = 'dyu-tmp')
-  s3 = session.client('s3')
+  s3 = boto3.client('s3')
 else:
   s3 = boto3.client('s3', endpoint_url = os.environ.get('AWS_ENDPOINT_URL'), use_ssl = False)
 
